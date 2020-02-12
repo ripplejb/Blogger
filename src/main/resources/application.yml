@@ -7,3 +7,37 @@ micronaut:
         enabled: true
         mapping: "/**"
         paths: "classpath:public"
+  security:
+    enabled: true
+    intercept-url-map:
+      - pattern: /**
+        access:
+          - isAnonymous()
+    oauth2:
+      enabled: true
+      clients:
+        google:
+          client-id: '393123747080-cgu69mq0plfbff1aimheoa52jn32qbuh.apps.googleusercontent.com'
+          client-secret: 'jxQaD9Y_KYH8G9mk-7obAxB8'
+          openid:
+            issuer: 'https://accounts.google.com'
+    token:
+      jwt:
+        enabled: true
+        cookie:
+          enabled: true
+        signatures:
+          secret:
+            generator:
+              secret: pleaseChangeThisSecretForANewOneInProduction
+    endpoints:
+      logout:
+        enabled: true
+        get-allowed: true
+  server:
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - https://accounts.google.com

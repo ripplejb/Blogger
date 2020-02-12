@@ -5,6 +5,24 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>Welcome to the simple world</h1>
+    <a href="/oauth/login/google">Sign In</a>
+    <button onclick="openGoogle()">Sign In With Google Account</button>
+    <script>
+        const url = "/oauth/login/google";
+        function openGoogle() {
+            window.open(url);
+        }
+        function callApi() {
+            fetch(url, {mode: 'no-cors'})
+                .then(data=> {
+                    data.then(resp => {
+                        alert(resp.toString())
+                    });
+                    return data.text()
+                })
+                .then(res => { document.body.append(res)})
+        }
+    </script>
 </body>
 </html>
