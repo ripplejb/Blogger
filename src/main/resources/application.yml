@@ -29,7 +29,7 @@ micronaut:
         signatures:
           secret:
             generator:
-              secret: pleaseChangeThisSecretForANewOneInProduction
+              secret: 48e883bd326a4df8bbccf58e1123029a
     endpoints:
       logout:
         enabled: true
@@ -40,4 +40,14 @@ micronaut:
       configurations:
         web:
           allowedOrigins:
-            - https://accounts.google.com
+            - http://localhost:4200
+endpoints:
+  stop:
+    enabled: false
+    sensitive: false
+  beans:
+    enabled: false
+    sensitive: true
+  info:
+    enabled: false
+    sensitive: false

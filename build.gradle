@@ -33,6 +33,7 @@ dependencies {
     implementation "io.micronaut.configuration:micronaut-security-oauth2"
     annotationProcessor "io.micronaut:micronaut-security"
     implementation "io.micronaut:micronaut-security-jwt"
+    implementation "io.micronaut:micronaut-management"
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
     testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"

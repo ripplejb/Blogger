@@ -1,1 +1,10 @@
-<h1>Hello World</h1>
+<mat-toolbar color="primary">
+  <h3>{{title}}</h3>
+  <span class="fill-remaining-space"></span>
+  <img src="{{userInfo.picture}}" alt="Smiley face" width="42" height="42" *ngIf="isSignedIn">
+  <button mat-button [matMenuTriggerFor]="menu" *ngIf="isSignedIn">{{userInfo.name}}</button>
+  <button mat-button *ngIf="!isSignedIn" (click)="signIn()">Sign In</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngIf="isSignedIn" (click)="signOut()">Sign Out</button>
+  </mat-menu>
+</mat-toolbar>

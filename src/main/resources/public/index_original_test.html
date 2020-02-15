@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Title</title>
+</head>
+<body onload="loadUserData()">
+    <h1>Welcome to the simple world</h1>
+    <h4 id="userName"></h4>
+    <img id="userImage" src="" alt="Photo"/>
+    <button onclick="login()">Sign In With Google Account</button>
+    <script>
+        function login() {
+            window.location.href = '/oauth/login/google';
+        }
+        async function loadUserData () {
+            const url = '/api/home';
+
+            const response = await fetch(url);
+
+            let userInfo = 'Failed to sign in.';
+            if (response.status >= 300) return;
+
+            userInfo = await response.json();
+
+            document.getElementById("userImage").src = userInfo.picture;
+            document.getElementById("userName").innerText = userInfo.name;
+        };
+    </script>
+</body>
+</html>
