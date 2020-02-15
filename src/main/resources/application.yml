@@ -41,6 +41,23 @@ micronaut:
         web:
           allowedOrigins:
             - http://localhost:4200
+datasources:
+  default:
+    url: "jdbc:postgresql://localhost:5432/blogger"
+    username: ripal
+    password: falguni
+    driverClassName: org.postgresql.Driver
+jpa:
+  default:
+    packages-to-scan:
+      - "shiseido.models"
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+
+
 endpoints:
   stop:
     enabled: false
