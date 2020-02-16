@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  isSignedIn: Boolean = false;
+  isSignedIn: Boolean;
 
   constructor(private loginService: LoginService) {
   }

@@ -1,0 +1,1 @@
+cp -a ./client/dist/client/. ./src/main/resources/public/

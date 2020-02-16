@@ -1,10 +1,16 @@
 <mat-toolbar color="primary">
   <h3>{{title}}</h3>
+  <nav>
+  <a routerLink="/" routerLinkActive="active">Home</a>
+  <a routerLink="/article-viewer" routerLinkActive="active">View Article - Temporary</a>
+  </nav>
   <span class="fill-remaining-space"></span>
-  <img src="{{userInfo.picture}}" alt="Smiley face" width="42" height="42" *ngIf="isSignedIn">
-  <button mat-button [matMenuTriggerFor]="menu" *ngIf="isSignedIn">{{userInfo.name}}</button>
-  <button mat-button *ngIf="!isSignedIn" (click)="signIn()">Sign In</button>
+  <img src="{{userInfo.picture}}" alt="Smiley face" width="42" height="42" *ngIf="userInfo != null">
+  <button mat-button [matMenuTriggerFor]="menu" *ngIf="userInfo != null">{{userInfo.name}}</button>
+  <button mat-button *ngIf="userInfo == null" (click)="signIn()">Sign In</button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngIf="isSignedIn" (click)="signOut()">Sign Out</button>
+    <button mat-menu-item *ngIf="userInfo != null" (click)="signOut()">Sign Out</button>
   </mat-menu>
 </mat-toolbar>
+
+<router-outlet></router-outlet>

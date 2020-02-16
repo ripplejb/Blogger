@@ -56,7 +56,14 @@ jpa:
         hbm2ddl:
           auto: update
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        jdbc:
+          time_zone: UTC
 
+query_limits:
+  posts:
+    max: 50
+  comments:
+    max: 50
 
 endpoints:
   stop:
