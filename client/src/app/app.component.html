@@ -1,8 +1,8 @@
 <mat-toolbar color="primary">
   <h3>{{title}}</h3>
   <nav>
-  <a routerLink="/" routerLinkActive="active">Home</a>
-  <a routerLink="/article-viewer" routerLinkActive="active">View Article - Temporary</a>
+  <button mat-button (click)="goHome()">Home</button>
+  <button mat-button (click)="goToNewArticle()">New Article</button>
   </nav>
   <span class="fill-remaining-space"></span>
   <img src="{{userInfo.picture}}" alt="Smiley face" width="42" height="42" *ngIf="userInfo != null">

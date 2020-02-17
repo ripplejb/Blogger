@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {LoginService} from "./login/login.service";
-import {UserInfo} from "./models/UserInfo";
+import {LoginService} from "./login_service/login.service";
+import {User} from "./models/User";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,22 @@ import {Subscription} from "rxjs";
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Blogger';
 
-  userInfo: UserInfo;
+  userInfo: User;
 
   subscription: Subscription;
 
   isSignedIn: Boolean;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService,
+              private router: Router) {
+  }
+
+  goHome() {
+    this.router.navigateByUrl("/").then();
+  }
+
+  goToNewArticle() {
+    this.router.navigate(["/article-viewer", {parentCommentId: 0}]).then();
   }
 
   signIn() {
@@ -29,8 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.loginService.getUserInfo().subscribe((userInfo) => {
-      this.userInfo = new UserInfo();
+    this.subscription = this.loginService.getUser().subscribe((userInfo) => {
+      this.userInfo = new User();
       this.userInfo.name = userInfo.name;
       this.userInfo.picture = userInfo.picture;
       this.isSignedIn = true;

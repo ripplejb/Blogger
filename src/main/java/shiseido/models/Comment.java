@@ -18,7 +18,7 @@ public class Comment {
     private Long id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "authorId", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User author;
@@ -41,7 +41,7 @@ public class Comment {
     @Column(name = "last_update_on")
     private Date last_update_on;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parentId")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Comment parent;

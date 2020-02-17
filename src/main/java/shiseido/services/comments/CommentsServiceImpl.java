@@ -1,6 +1,6 @@
 package shiseido.services.comments;
 
-import shiseido.configurations.QueryLimitsConfiguration;
+import io.micronaut.context.annotation.Value;
 import shiseido.models.Comment;
 import shiseido.models.User;
 import shiseido.repositories.interfaces.CommentsRepository;
@@ -9,8 +9,10 @@ import shiseido.services.users.UsersService;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import java.util.List;
 
+@Singleton
 public class CommentsServiceImpl implements CommentsService {
 
     @Inject
@@ -18,39 +20,33 @@ public class CommentsServiceImpl implements CommentsService {
     @Inject
     private final CommentsRepository commentsRepository;
 
-    private final QueryLimitsConfiguration postsQueryLimitsConfiguration;
-    private final QueryLimitsConfiguration commentsQueryLimitsConfiguration;
+    @Value("${query_limits.posts.max}")
+    private int postsQueryLimits;
+    @Value("${query_limits.comments.max}")
+    private int commentsQueryLimits;
 
 
     public CommentsServiceImpl(UsersService usersService,
-                               CommentsRepository commentsRepository,
-                               @Nullable @Named("posts") QueryLimitsConfiguration postsQueryLimitsConfiguration,
-                               @Nullable @Named("comments") QueryLimitsConfiguration commentsQueryLimitsConfiguration) {
+                               CommentsRepository commentsRepository) {
         this.usersService = usersService;
         this.commentsRepository = commentsRepository;
-        this.postsQueryLimitsConfiguration = postsQueryLimitsConfiguration;
-        this.commentsQueryLimitsConfiguration =commentsQueryLimitsConfiguration;
     }
 
 
     @Override
     public List<Comment> getLatestComments() {
-        assert postsQueryLimitsConfiguration != null;
-        return commentsRepository.getAllLatest(postsQueryLimitsConfiguration.getMax());
+        return commentsRepository.getAllLatest(postsQueryLimits);
     }
 
     @Override
-    public List<Comment> getLatestChildComments(int commentId) {
-        assert commentsQueryLimitsConfiguration != null;
-        return commentsRepository.getAllLatestChildComments(commentsQueryLimitsConfiguration.getMax(), commentId);
+    public List<Comment> getLatestChildComments(Long commentId) {
+        return commentsRepository.getAllLatestChildComments(commentsQueryLimits, commentId);
     }
 
     @Override
-    public Comment save(String comment, String userEmail, int parentId) {
+    public Comment save(String comment, String userEmail, Long parentId) {
 
-        User user;
-
-        user = usersService.findByEmail(userEmail);
+        User user = usersService.findByEmail(userEmail);
 
         if (user == null)
             return null;

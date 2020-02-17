@@ -8,13 +8,14 @@ import shiseido.repositories.interfaces.UsersRepository;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotBlank;
 
 @Singleton
 public class UsersRepositoryImpl implements UsersRepository {
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     public final EntityManager entityManager;
 
     public UsersRepositoryImpl(@CurrentSession EntityManager entityManager) {

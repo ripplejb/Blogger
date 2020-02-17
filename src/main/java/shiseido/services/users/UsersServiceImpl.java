@@ -1,5 +1,6 @@
 package shiseido.services.users;
 
+import io.micronaut.spring.tx.annotation.Transactional;
 import org.hibernate.exception.SQLGrammarException;
 import shiseido.models.User;
 import shiseido.repositories.interfaces.UsersRepository;
@@ -23,11 +24,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findByEmail(String email) {
         return repository.findByEmailId(email);
     }
 
     @Override
+    @Transactional
     public User save(@NotBlank String name, @NotBlank String email) {
         User user = GetUserIfExists(email);
         if (user == null)

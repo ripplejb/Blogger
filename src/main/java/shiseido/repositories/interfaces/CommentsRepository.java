@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CommentsRepository {
     List<Comment> getAllLatest(int max);
-    List<Comment> getAllLatestChildComments(int max, int commentId);
-    Comment getById(int id);
+    List<Comment> getAllLatestChildComments(int max, Long commentId);
+    Comment getById(Long id);
     Comment save(@NotNull String comment, @NotNull User author, Comment parent);
 }

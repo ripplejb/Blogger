@@ -1,5 +1,6 @@
 package shiseido.repositories.implementations;
 
+import io.micronaut.spring.tx.annotation.Transactional;
 import shiseido.models.Comment;
 import shiseido.models.User;
 import shiseido.repositories.interfaces.CommentsRepository;
@@ -7,6 +8,7 @@ import shiseido.repositories.interfaces.CommentsRepository;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
 @Singleton
 public class CommentsRepositoryImpl implements CommentsRepository {
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     public final EntityManager entityManager;
 
     public CommentsRepositoryImpl(EntityManager entityManager) {
@@ -22,6 +24,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Comment> getAllLatest(int max) {
         TypedQuery<Comment> query = entityManager.createQuery(
                 "select c " +
@@ -34,7 +37,8 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     }
 
     @Override
-    public List<Comment> getAllLatestChildComments(int max, int commentId) {
+    @Transactional(readOnly = true)
+    public List<Comment> getAllLatestChildComments(int max, Long commentId) {
         TypedQuery<Comment> query = entityManager.createQuery(
                 "select c " +
                         "from Comment c " +
@@ -48,11 +52,13 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     }
 
     @Override
-    public Comment getById(int id) {
+    @Transactional(readOnly = true)
+    public Comment getById(Long id) {
         return entityManager.find(Comment.class, id);
     }
 
     @Override
+    @Transactional
     public Comment save(String comment, User author, Comment parent) {
         Comment newComment = new Comment();
         newComment.setComment(comment);

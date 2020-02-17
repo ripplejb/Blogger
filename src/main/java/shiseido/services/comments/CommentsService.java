@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface CommentsService {
     List<Comment> getLatestComments();
-    List<Comment> getLatestChildComments(int commentId);
-    Comment save(String comment, String userEmail, int parentId);
+    List<Comment> getLatestChildComments(Long commentId);
+    Comment save(String comment, String userEmail, Long parentId);
 }
