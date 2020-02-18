@@ -23,11 +23,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   goHome() {
-    this.router.navigateByUrl("/").then();
+    this.router.navigate(["/article-list", {isSignedIn: this.isSignedIn ? '1' : '0'}]).then();
   }
 
   goToNewArticle() {
-    this.router.navigate(["/article-viewer", {parentCommentId: 0}]).then();
+    this.router.navigate(["/article-viewer", {parentCommentId: 0, isSignedIn: this.isSignedIn ? '1' : '0'}]).then();
   }
 
   signIn() {
@@ -44,9 +44,11 @@ export class AppComponent implements OnInit, OnDestroy {
       this.userInfo.name = userInfo.name;
       this.userInfo.picture = userInfo.picture;
       this.isSignedIn = true;
+      this.goHome();
     },
     error => {
       this.isSignedIn = false;
+      this.goHome();
     });
   }
 

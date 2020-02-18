@@ -1,0 +1,38 @@
+<div class="router-outlet-content">
+  <ul class="comment-list">
+
+    <li *ngIf="comments.length > 0">
+      <mat-card>
+        {{comments[0].comment}}
+      </mat-card>
+    </li>
+    <li>
+      <mat-card *ngIf="isSignedIn">
+        <div class="editor-form">
+          <mat-form-field class="edit-box-field">
+            <mat-label *ngIf="comments.length == 0">Write A Post</mat-label>
+            <mat-label *ngIf="comments.length > 0">Leave a comment</mat-label>
+            <textarea matInput placeholder="Write what you feel... Others have feelings too..."
+                      [(ngModel)]="currentComment.comment"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="button-container">
+          <span class="fill-remaining-space"></span>
+          <button mat-flat-button color="primary" (click)="onSubmit()">Submit</button>
+        </div>
+      </mat-card>
+      <mat-card *ngIf="!isSignedIn">
+        <div class="editor-form">
+          <span style="font-weight: bold; font-size: 16px; color: deeppink">Please sign in to comment...</span>
+        </div>
+      </mat-card>
+    </li>
+
+    <li *ngFor="let comment of comments; index as i;">
+      <mat-card *ngIf="i > 0">
+        {{comment.comment}}
+      </mat-card>
+    </li>
+  </ul>
+
+</div>

@@ -6,7 +6,7 @@ import {ArticleViewerComponent} from "./article-viewer/article-viewer.component"
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'article-list',
     component: ArticleListComponent
   },
   {

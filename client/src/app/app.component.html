@@ -1,8 +1,8 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="app-bar">
   <h3>{{title}}</h3>
   <nav>
-  <button mat-button (click)="goHome()">Home</button>
-  <button mat-button (click)="goToNewArticle()">New Article</button>
+    <button mat-button (click)="goHome()">Home</button>
+    <button mat-button (click)="goToNewArticle()">New Article</button>
   </nav>
   <span class="fill-remaining-space"></span>
   <img src="{{userInfo.picture}}" alt="Smiley face" width="42" height="42" *ngIf="userInfo != null">
@@ -12,5 +12,4 @@
     <button mat-menu-item *ngIf="userInfo != null" (click)="signOut()">Sign Out</button>
   </mat-menu>
 </mat-toolbar>
-
 <router-outlet></router-outlet>

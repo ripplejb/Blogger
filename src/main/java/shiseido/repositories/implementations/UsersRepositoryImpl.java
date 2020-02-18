@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 @Singleton
 public class UsersRepositoryImpl implements UsersRepository {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     public final EntityManager entityManager;
 
     public UsersRepositoryImpl(@CurrentSession EntityManager entityManager) {

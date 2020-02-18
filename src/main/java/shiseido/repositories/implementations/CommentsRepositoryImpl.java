@@ -16,7 +16,7 @@ import java.util.List;
 @Singleton
 public class CommentsRepositoryImpl implements CommentsRepository {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext(type = PersistenceContextType.TRANSACTION)
     public final EntityManager entityManager;
 
     public CommentsRepositoryImpl(EntityManager entityManager) {
@@ -42,7 +42,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         TypedQuery<Comment> query = entityManager.createQuery(
                 "select c " +
                         "from Comment c " +
-                        "where c.parent.id = :commentId " +
+                        "where c.parent.id = :commentId or c.id = :commentId " +
                         "order by c.created_on",
                 Comment.class
         )

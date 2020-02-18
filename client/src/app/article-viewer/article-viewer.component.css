@@ -1,0 +1,31 @@
+.editor-form {
+  min-width: 150px;
+  width: 100%;
+}
+
+.edit-box-field {
+  width: 100%;
+}
+.edit-box-field textarea {
+  min-height: 100px;
+  max-height: 300px;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.comment-list {
+  list-style-type: none;
+  padding-left: 25px;
+}
+
+.comment-list li {
+  margin-top: 5px;
+  margin-right: 25px;
+}
