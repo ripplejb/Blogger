@@ -7,15 +7,16 @@
 - **Frameworks:**
   - Micronaut
   - Hibernate
-- **UI Framework:** Angular 9
+- **UI Framework:** Angular 9.0.1
 - **Database:** PostgreSQL
 
 ### How to run?
 
 1. Install OpenJDK 11.0.6.
 2. Install PostgreSQL.
-3. Download/Clone the code in a folder.
-4. Create an empty database in PostgreSQL. Setup the values mentioned below according to your database setup. 
+3. Install latest node.js, angular CLI 9.0.1
+4. Download/Clone the code in a folder.
+5. Create an empty database in PostgreSQL. Setup the values mentioned below according to your database setup in the **application.yml**. 
   ```
   datasources:
   default:
@@ -24,6 +25,11 @@
     password: <PASSWORD>
     driverClassName: org.postgresql.Driver
   ```
-5. Go to the app folder on the terminal.
-6. If working on linux, make sure the **gradlew** file has the execute permissoin.
-7. 
+6. Go to the app folder on the terminal.
+7. If working on linux, make sure the **CopyClientApp.sh** and **gradlew** files have the execute permissoin.
+8. Run **gradlew** from the terminal. This will first compile the angular client and then the **blogger** project.
+9. If port conflicts, change the port in the **application.yml**.
+  ```
+      server:
+      port: 8081
+  ```
