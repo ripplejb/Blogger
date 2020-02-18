@@ -400,7 +400,7 @@ class ArticleListComponent {
     }
 }
 ArticleListComponent.ɵfac = function ArticleListComponent_Factory(t) { return new (t || ArticleListComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_comment_service_comment_service__WEBPACK_IMPORTED_MODULE_1__["CommentService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"])); };
-ArticleListComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ArticleListComponent, selectors: [["app-article-list"]], decls: 3, vars: 1, consts: [[1, "router-outlet-content"], [1, "comment-container"], [4, "ngFor", "ngForOf"], ["class", "comment-card", 4, "ngIf"], [1, "comment-card"], [1, "comment-header"], [2, "font-weight", "bold", "margin-right", "5px"], [1, "comment-content"], [1, "comment-footer"], ["mat-button", "", "color", "primary", 3, "click"]], template: function ArticleListComponent_Template(rf, ctx) { if (rf & 1) {
+ArticleListComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ArticleListComponent, selectors: [["app-article-list"]], decls: 3, vars: 1, consts: [[1, "router-outlet-content"], [1, "comment-container"], [4, "ngFor", "ngForOf"], ["class", "comment-card", 4, "ngIf"], [1, "comment-card"], [1, "comment-header"], [2, "font-weight", "bold", "margin-right", "5px"], [1, "comment-content"], [1, "comment-footer"], ["mat-flat-button", "", "color", "primary", 3, "click"]], template: function ArticleListComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, ArticleListComponent_div_2_Template, 2, 1, "div", 2);
@@ -641,9 +641,6 @@ class CommentService {
         this.http = http;
         this.baseUrl = "";
         this.url = "/api/comments";
-        if (Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])()) {
-            this.baseUrl = "http://localhost:8080";
-        }
     }
     getComments(parentCommentId) {
         return this.http.get(this.baseUrl + this.url + "/" + parentCommentId.toString());
@@ -693,9 +690,6 @@ class LoginService {
         this.getUserInfoUrl = "/api/users";
         this.signInWithGoogleUrl = "/oauth/login/google";
         this.signOutUrl = "/logout";
-        if (Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])()) {
-            this.baseUrl = "http://localhost:8080";
-        }
     }
     getUser() {
         return this.http.get(this.baseUrl + this.getUserInfoUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(data => {

@@ -13,9 +13,6 @@ export class CommentService {
   private url: string = "/api/comments";
 
   constructor(private http: HttpClient) {
-    if (isDevMode()) {
-      this.baseUrl = "http://localhost:8080";
-    }
   }
 
   getComments(parentCommentId: number): Observable<Array<Comment>> {

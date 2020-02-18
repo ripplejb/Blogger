@@ -35,6 +35,7 @@ micronaut:
         enabled: true
         get-allowed: true
   server:
+    port: 8080
     cors:
       enabled: true
       configurations:

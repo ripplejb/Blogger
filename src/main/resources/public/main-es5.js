@@ -789,7 +789,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       selectors: [["app-article-list"]],
       decls: 3,
       vars: 1,
-      consts: [[1, "router-outlet-content"], [1, "comment-container"], [4, "ngFor", "ngForOf"], ["class", "comment-card", 4, "ngIf"], [1, "comment-card"], [1, "comment-header"], [2, "font-weight", "bold", "margin-right", "5px"], [1, "comment-content"], [1, "comment-footer"], ["mat-button", "", "color", "primary", 3, "click"]],
+      consts: [[1, "router-outlet-content"], [1, "comment-container"], [4, "ngFor", "ngForOf"], ["class", "comment-card", 4, "ngIf"], [1, "comment-card"], [1, "comment-header"], [2, "font-weight", "bold", "margin-right", "5px"], [1, "comment-content"], [1, "comment-footer"], ["mat-flat-button", "", "color", "primary", 3, "click"]],
       template: function ArticleListComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -1283,10 +1283,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.http = http;
         this.baseUrl = "";
         this.url = "/api/comments";
-
-        if (Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])()) {
-          this.baseUrl = "http://localhost:8080";
-        }
       }
 
       _createClass(CommentService, [{
@@ -1393,10 +1389,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.getUserInfoUrl = "/api/users";
         this.signInWithGoogleUrl = "/oauth/login/google";
         this.signOutUrl = "/logout";
-
-        if (Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])()) {
-          this.baseUrl = "http://localhost:8080";
-        }
       }
 
       _createClass(LoginService, [{

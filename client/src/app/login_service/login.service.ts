@@ -16,9 +16,6 @@ export class LoginService {
   private signOutUrl: string = "/logout";
 
   constructor(private http: HttpClient) {
-    if (isDevMode()) {
-      this.baseUrl = "http://localhost:8080";
-    }
   }
 
   getUser(): Observable<User> {

@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 cd ./client
 ng build
 cd ../
