@@ -23,9 +23,9 @@
 ```
     datasources:
       default:
-        url: "jdbc:postgresql://localhost:5432/blogger"
-        username: ripal
-        password: falguni
+        url: "jdbc:postgresql://localhost:5432/<DATABASE_NAME>"
+        username: <USER_NAME>
+        password: <PASSWORD>
         driverClassName: org.postgresql.Driver
 
 ```
