@@ -373,7 +373,7 @@ function ArticleListComponent_div_2_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const i_r2 = ctx.index;
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", i_r2 > 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", i_r2 >= 0);
 } }
 class ArticleListComponent {
     constructor(commentService, router, route) {
@@ -386,7 +386,9 @@ class ArticleListComponent {
         this.router.navigate(["/article-viewer", { parentCommentId: commentId, isSignedIn: this.isSignedIn ? '1' : '0' }]).then();
     }
     ngOnInit() {
-        this.subscription = this.commentService.getComments(0).subscribe(comments => this.comments = Object.assign([], comments));
+        this.subscription = this.commentService.getComments(0).subscribe(comments => {
+            this.comments = Object.assign([], comments);
+        });
         this.routeParamSubscription = this.route.params.subscribe(param => {
             this.isSignedIn = false;
             if (param["isSignedIn"]) {
@@ -560,6 +562,7 @@ class ArticleViewerComponent {
         });
     }
     loadComments() {
+        this.comments = new Array();
         this.commentService.getComments(this.parentCommentId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1)).subscribe(comments => {
             let i = 0;
             comments.forEach((comment => {
@@ -575,7 +578,8 @@ class ArticleViewerComponent {
         this.routeParamSubscription = this.route.params.subscribe(param => {
             if (param["parentCommentId"]) {
                 this.parentCommentId = +param["parentCommentId"];
-                this.loadComments();
+                if (this.parentCommentId !== 0)
+                    this.loadComments();
             }
             this.isSignedIn = false;
             if (param["isSignedIn"]) {

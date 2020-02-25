@@ -29,7 +29,9 @@ export class ArticleListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.commentService.getComments(0).subscribe(
-      comments => this.comments = Object.assign([], comments)
+      comments => {
+        this.comments = Object.assign([], comments)
+      }
     );
     this.routeParamSubscription = this.route.params.subscribe(param => {
       this.isSignedIn = false;

@@ -729,7 +729,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", i_r2 > 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", i_r2 >= 0);
       }
     }
 
@@ -759,7 +759,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this2 = this;
 
           this.subscription = this.commentService.getComments(0).subscribe(function (comments) {
-            return _this2.comments = Object.assign([], comments);
+            _this2.comments = Object.assign([], comments);
           });
           this.routeParamSubscription = this.route.params.subscribe(function (param) {
             _this2.isSignedIn = false;
@@ -1129,6 +1129,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function loadComments() {
           var _this4 = this;
 
+          this.comments = new Array();
           this.commentService.getComments(this.parentCommentId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1)).subscribe(function (comments) {
             var i = 0;
             comments.forEach(function (comment) {
@@ -1145,8 +1146,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.routeParamSubscription = this.route.params.subscribe(function (param) {
             if (param["parentCommentId"]) {
               _this5.parentCommentId = +param["parentCommentId"];
-
-              _this5.loadComments();
+              if (_this5.parentCommentId !== 0) _this5.loadComments();
             }
 
             _this5.isSignedIn = false;

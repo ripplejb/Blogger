@@ -51,6 +51,7 @@ export class ArticleViewerComponent implements OnInit, OnDestroy {
   }
 
   loadComments() {
+    this.comments = new Array<Comment>();
     this.commentService.getComments(this.parentCommentId).pipe(take(1)).subscribe(
       comments => {
         let i = 0;
@@ -72,7 +73,8 @@ export class ArticleViewerComponent implements OnInit, OnDestroy {
     this.routeParamSubscription = this.route.params.subscribe(param => {
       if (param["parentCommentId"]) {
         this.parentCommentId = +param["parentCommentId"];
-        this.loadComments();
+        if (this.parentCommentId !== 0)
+          this.loadComments();
       }
       this.isSignedIn = false;
       if (param["isSignedIn"]) {
