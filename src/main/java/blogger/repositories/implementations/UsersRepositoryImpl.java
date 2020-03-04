@@ -4,6 +4,7 @@ import io.micronaut.configuration.hibernate.jpa.scope.CurrentSession;
 import io.micronaut.spring.tx.annotation.Transactional;
 import blogger.models.User;
 import blogger.repositories.interfaces.UsersRepository;
+import io.reactivex.Maybe;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
@@ -23,20 +24,20 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     @Transactional(readOnly = true)
-    public User findByEmailId(String email) {
+    public Maybe<User> findByEmailId(String email) {
         TypedQuery<User> query = entityManager.createQuery(
                 "select u from User u where u.email = :email",
                 User.class
         );
-        return query.setParameter("email", email)
-                .getSingleResult();
+        return Maybe.just(query.setParameter("email", email)
+                .getSingleResult());
     }
 
     @Override
     @Transactional
-    public User save(@NotBlank String name, @NotBlank String email) {
+    public Maybe<User> save(@NotBlank String name, @NotBlank String email) {
         User user = new User(name, email);
         entityManager.persist(user);
-        return user;
+        return Maybe.just(user);
     }
 }

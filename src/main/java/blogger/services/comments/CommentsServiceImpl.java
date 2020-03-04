@@ -45,16 +45,18 @@ public class CommentsServiceImpl implements CommentsService {
     @Override
     public Maybe<Comment> save(String comment, String userEmail, Long parentId) {
 
-        User user = usersService.findByEmail(userEmail);
+        return usersService.findByEmail(userEmail)
+                .map(user -> {
+                    if (user == null) {
+                        throw new Exception("Unauthorized");
+                    }
 
-        if (user == null)
-            return null;
+                    if (parentId > 0) {
+                        return commentsRepository.getById(parentId).map(parent ->
+                            commentsRepository.save(comment, user, parent));
+                    }
+                    return commentsRepository.save(comment, user, null);
+                }).cast(Comment.class);
 
-        Comment parent = null;
-
-        if (parentId > 0)
-            parent = commentsRepository.getById(parentId).blockingGet();
-
-        return commentsRepository.save(comment, user, parent);
     }
 }
