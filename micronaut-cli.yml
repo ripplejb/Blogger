@@ -1,5 +1,5 @@
 profile: service
-defaultPackage: shiseido
+defaultPackage: blogger
 ---
 testFramework: junit
 sourceLanguage: java

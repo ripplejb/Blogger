@@ -5,6 +5,7 @@ import blogger.models.Comment;
 import blogger.models.User;
 import blogger.repositories.interfaces.CommentsRepository;
 import blogger.services.users.UsersService;
+import io.reactivex.Maybe;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -32,17 +33,17 @@ public class CommentsServiceImpl implements CommentsService {
 
 
     @Override
-    public List<Comment> getLatestComments() {
+    public Maybe<List<Comment>> getLatestComments() {
         return commentsRepository.getAllLatest(postsQueryLimits);
     }
 
     @Override
-    public List<Comment> getLatestChildComments(Long commentId) {
+    public Maybe<List<Comment>> getLatestChildComments(Long commentId) {
         return commentsRepository.getAllLatestChildComments(commentsQueryLimits, commentId);
     }
 
     @Override
-    public Comment save(String comment, String userEmail, Long parentId) {
+    public Maybe<Comment> save(String comment, String userEmail, Long parentId) {
 
         User user = usersService.findByEmail(userEmail);
 
@@ -51,8 +52,8 @@ public class CommentsServiceImpl implements CommentsService {
 
         Comment parent = null;
 
-            if (parentId > 0)
-                parent = commentsRepository.getById(parentId);
+        if (parentId > 0)
+            parent = commentsRepository.getById(parentId).blockingGet();
 
         return commentsRepository.save(comment, user, parent);
     }

@@ -51,7 +51,7 @@ datasources:
 jpa:
   default:
     packages-to-scan:
-      - "shiseido.models"
+      - "blogger.models"
     properties:
       hibernate:
         hbm2ddl:
