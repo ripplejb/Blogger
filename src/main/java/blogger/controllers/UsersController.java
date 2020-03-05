@@ -1,5 +1,6 @@
 package blogger.controllers;
 
+import blogger.models.User;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MutableHttpResponse;
@@ -32,14 +33,13 @@ public class UsersController {
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @JsonValue
     @Get("/api/users")
-    public HttpResponse<Maybe<UserContract>> get(@Nullable Authentication authentication) {
+    public HttpResponse<UserContract> get(@Nullable Authentication authentication) {
 
         assert authentication != null;
 
-
-        return HttpResponse.ok(userService.save(authentication.getAttributes().get("name").toString(),
-                authentication.getAttributes().get("email").toString())
-        .map(u -> userContractMapper.fromAuthentication(authentication)));
+        userService.save(authentication.getAttributes().get("name").toString(),
+                authentication.getAttributes().get("email").toString());
+        return HttpResponse.ok(userContractMapper.fromAuthentication(authentication));
 
     }
 

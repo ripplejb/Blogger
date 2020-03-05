@@ -48,29 +48,23 @@ public class CommentsController {
     @Secured(SecurityRule.IS_ANONYMOUS)
     @JsonValue
     @Get("/api/comments/{parentCommentId}")
-    public HttpResponse<Maybe<List<CommentContract>>> get(Long parentCommentId) {
-        if (parentCommentId == 0) {
-            return HttpResponse.ok(commentsService
-                    .getLatestComments()
-                    .map(this::GetCommentContracts)
-                    .onErrorComplete());
-        } else {
-            return HttpResponse.ok(commentsService
-                    .getLatestChildComments(parentCommentId)
-                    .map(this::GetCommentContracts)
-                    .onErrorComplete());
-        }
+    public HttpResponse<List<CommentContract>> get(Long parentCommentId) {
+        List<Comment> comments = commentsService
+                .getLatestComments(parentCommentId);
+        return HttpResponse.ok(GetCommentContracts(comments));
     }
 
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @JsonValue
     @Post("/api/comments")
-    public HttpResponse<Maybe<CommentContract>> post(@Body @Valid CommentContract commentContract, @Nullable Authentication authentication) {
+    public HttpResponse<CommentContract> post(@Body @Valid CommentContract commentContract, @Nullable Authentication authentication) {
 
         assert authentication != null;
 
-        return  HttpResponse.created(commentsService.save(commentContract.getComment(), authentication.getAttributes().get("email").toString(),
-                commentContract.getParentId()).map(commentContractMapper::fromComment));
+        Comment comment =  commentsService.save(commentContract.getComment(),
+                authentication.getAttributes().get("email").toString(),
+                commentContract.getParentId());
+        return HttpResponse.created(commentContractMapper.fromComment(comment));
 
     }
 }

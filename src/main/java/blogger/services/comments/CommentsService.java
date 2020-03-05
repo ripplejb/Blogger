@@ -6,7 +6,6 @@ import io.reactivex.Maybe;
 import java.util.List;
 
 public interface CommentsService {
-    Maybe<List<Comment>> getLatestComments();
-    Maybe<List<Comment>> getLatestChildComments(Long commentId);
-    Maybe<Comment> save(String comment, String userEmail, Long parentId);
+    List<Comment> getLatestComments(Long commentId);
+    Comment save(String comment, String userEmail, Long parentId);
 }

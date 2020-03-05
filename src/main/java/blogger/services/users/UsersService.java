@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 public interface UsersService {
 
-    Maybe<User> findByEmail(String email);
-    Maybe<User> save(@NotBlank String name, @NotBlank String email);
+    User findByEmail(String email);
+    User save(@NotBlank String name, @NotBlank String email);
 
 }

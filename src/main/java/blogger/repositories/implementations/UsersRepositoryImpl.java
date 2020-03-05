@@ -24,20 +24,20 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     @Transactional(readOnly = true)
-    public Maybe<User> findByEmailId(String email) {
+    public User findByEmailId(String email) {
         TypedQuery<User> query = entityManager.createQuery(
                 "select u from User u where u.email = :email",
                 User.class
         );
-        return Maybe.just(query.setParameter("email", email)
-                .getSingleResult());
+        return query.setParameter("email", email)
+                .getSingleResult();
     }
 
     @Override
     @Transactional
-    public Maybe<User> save(@NotBlank String name, @NotBlank String email) {
+    public User save(@NotBlank String name, @NotBlank String email) {
         User user = new User(name, email);
         entityManager.persist(user);
-        return Maybe.just(user);
+        return user;
     }
 }

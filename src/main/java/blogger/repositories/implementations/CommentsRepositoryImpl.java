@@ -26,7 +26,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
 
     @Override
     @Transactional(readOnly = true)
-    public Maybe<List<Comment>> getAllLatest(int max) {
+    public List<Comment> getAllLatest(int max) {
         TypedQuery<Comment> query = entityManager.createQuery(
                 "select c " +
                         "from Comment c " +
@@ -34,12 +34,12 @@ public class CommentsRepositoryImpl implements CommentsRepository {
                         "order by c.created_on",
                 Comment.class
         ).setMaxResults(max);
-        return Maybe.just(query.getResultList());
+        return query.getResultList();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Maybe<List<Comment>> getAllLatestChildComments(int max, Long commentId) {
+    public List<Comment> getAllLatestChildComments(int max, Long commentId) {
         TypedQuery<Comment> query = entityManager.createQuery(
                 "select c " +
                         "from Comment c " +
@@ -49,18 +49,18 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         )
                 .setParameter("commentId", commentId)
                 .setMaxResults(max);
-        return Maybe.just(query.getResultList());
+        return query.getResultList();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Maybe<Comment> getById(Long id) {
-        return Maybe.just(entityManager.find(Comment.class, id));
+    public Comment getById(Long id) {
+        return entityManager.find(Comment.class, id);
     }
 
     @Override
     @Transactional
-    public Maybe<Comment> save(String comment, User author, Comment parent) {
+    public Comment save(String comment, User author, Comment parent) {
         Comment newComment = new Comment();
         newComment.setComment(comment);
         newComment.setAuthor(author);
@@ -68,6 +68,6 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         newComment.setCreated_on(new Date());
         newComment.setLast_update_on(new Date());
         entityManager.persist(newComment);
-        return Maybe.just(newComment);
+        return newComment;
     }
 }
